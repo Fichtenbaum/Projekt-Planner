@@ -26,7 +26,6 @@ class Component {
   detach() {
     if (this.element) {
       this.element.remove();
-      // this.element.parentElement.removeChild(this.element);
     }
   }
 
@@ -153,8 +152,6 @@ class ProjectList {
   }
 
   switchProject(projectId) {
-    // const projectIndex = this.projects.findIndex(p => p.id === projectId);
-    // this.projects.splice(projectIndex, 1);
     this.switchHandler(this.projects.find((p) => p.id === projectId));
     this.projects = this.projects.filter((p) => p.id !== projectId);
   }
@@ -171,9 +168,13 @@ class App {
       activeProjectsList.addProject.bind(activeProjectsList)
     );
 
+    const timerId = setTimeout(this.startAnalytics, 3000);
+
     document
-      .getElementById("start-analytics-btn")
-      .addEventListener("click", this.startAnalytics);
+      .getElementById("stop-analytics-btn")
+      .addEventListener("click", () => {
+        clearTimeout(timerId);
+      });
   }
 
   static startAnalytics() {
